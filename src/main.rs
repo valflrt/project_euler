@@ -5,7 +5,7 @@ use std::time::Instant;
 fn main() {
     let start = Instant::now();
 
-    problem14::main();
+    problem39::main();
 
     println!("\n{:?} elapsed", start.elapsed());
 }
@@ -109,5 +109,50 @@ mod problem22 {
             .sum::<u128>();
 
         println!("{}", sum);
+    }
+}
+
+/// https://projecteuler.net/problem=22
+mod problem39 {
+
+    const N: usize = 1000;
+
+    pub fn main() {
+        let mut max_solutions = 0;
+        let mut max_solutions_p = 0;
+        let mut solutions = Vec::new();
+
+        for p in 1..=N {
+            let mut n_solutions_p = 0;
+            let mut solutions_p = Vec::new();
+
+            // a is the smallest of the three sides of the triangle so
+            // it has to be smaller than a third of the perimeter
+            for a in 1..p / 3 {
+                for b in 1..p - a {
+                    let c = p - a - b;
+
+                    if a <= b && b <= c && a + b + c == p && a * a + b * b == c * c {
+                        n_solutions_p += 1;
+                        solutions_p.push((a, b, c));
+                    }
+                }
+            }
+
+            if n_solutions_p > max_solutions {
+                max_solutions = n_solutions_p;
+                max_solutions_p = p;
+                solutions = solutions_p;
+            }
+        }
+
+        println!(
+            "max solutions {} for p = {}\n solutions are: {:?}",
+            max_solutions, max_solutions_p, solutions
+        );
+
+        assert!(solutions.iter().all(|(a, b, c)| a <= b && b <= c));
+
+        // this could be optimized more but it works so...
     }
 }
