@@ -1,3 +1,3 @@
-This is my solutions, written in Rust, to some problems from [Project Euler](https://projecteuler.net).
+These are my solutions, written in Rust, to some problems from [Project Euler](https://projecteuler.net).
 
 They're most likely bad and/or unoptimized but they work...
